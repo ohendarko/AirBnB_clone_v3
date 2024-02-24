@@ -1,9 +1,6 @@
 #!/usr/bin/python3
 """main api program I think"""
-import json
-from flask import Flask, request, Blueprint
-from markupsafe import escape
-from flask_sqlalchemy import SQLAlchemy
+from flask import Flask
 from models import storage
 from api.v1.views import app_views
 
