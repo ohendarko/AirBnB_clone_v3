@@ -1,7 +1,6 @@
 #!/usr/bin/python3
 """Pending documentation"""
 from api.v1.views import app_views
-from models.engine import db_storage
 from models import storage
 from models.amenity import Amenity
 from models.city import City
@@ -20,9 +19,11 @@ def status():
 @app_views.route("/stats", methods=['GET'])
 def stats():
     """ retrieves the number of each objects by type"""
-    klass = db_storage.classes
-    counts = {}
-    for key in klass:
-        value = klass[key]
-        counts[key.lower()] = storage.count(value)
-    return counts
+    return {
+        "amenities": storage.count(Amenity),
+        "cities": storage.count(City),
+        "places": storage.count(Place),
+        "reviews": storage.count(Review),
+        "states": storage.count(State),
+        "users": storage.count(User)
+    }
