@@ -7,3 +7,9 @@ from api.v1.views import app_views
 def status():
     """return OK status"""
     return {"status": "OK"}
+
+
+@app_views.route("/stats", methods=['GET'])
+def stats():
+    """return OK status"""
+    return {"status": "OK"}
