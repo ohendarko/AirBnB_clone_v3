@@ -8,14 +8,18 @@ from flask import request
 
 
 @app_views.route("/states/<state_id>/cities", methods=['GET'])
-def cities():
+def cities(state_id):
     """the list of all City objects"""
+    state = storage.get(State, state_id)
+    if state is None:
+        abort(404)
     cities = storage.all(City).values()
-    return jsonify([cities.to_dict() for city in cities])
+    state_cities = [city.to_dict() for city in cities if city.state_id == state_id]
+    return jsonify(state_cities), 200
 
 
-@app_views.route("/states/cities/<city_id>", methods=['GET'])
-def get_cities(city_id):
+@app_views.route("/cities/<city_id>", methods=['GET'])
+def get_city(city_id):
     """Get a specific City object by ID"""
     city = storage.get(City, city_id)
     if city is None:
@@ -24,7 +28,7 @@ def get_cities(city_id):
 
 
 @app_views.route("/cities/<city_id>", methods=['DELETE'])
-def delete_state(city_id):
+def delete_city(city_id):
     """Get a specific State object by ID"""
     city = storage.get(City, city_id)
     if city is None:
@@ -34,22 +38,18 @@ def delete_state(city_id):
 
 
 @app_views.route("/states/<state_id>/cities", methods=['POST'])
-def post_state(state_id):
+def post_city(state_id):
     """Post a specific State object by ID"""
-    # Parse JSON data from request body
     data = request.get_json()
-    # Check if request body is valid JSON
     if data is None:
         abort(400, 'Not a JSON')
     state = storage.get(State, state_id)
     if state is None:
         abort(404)
-    # Check is 'name' key is in data(JSON data)
     if 'name' not in data:
         abort(400, 'Missing name')
     city_name = data['name']
-
-    new_city = City(name=city_name)
+    new_city = City(name=city_name, state_id=state_id)
 
     storage.new(new_city)
     storage.save()
@@ -57,7 +57,7 @@ def post_state(state_id):
 
 
 @app_views.route("cities/<city_id>", methods=['PUT'])
-def update_state(city_id):
+def update_city(city_id):
     """Update a specific State object by ID"""
     data = request.get_json()
     if data is None:
@@ -70,4 +70,4 @@ def update_state(city_id):
         if key not in ['id', 'created_at', 'updated_at']:
             setattr(city, key, value)
     storage.save()
-    return jsonify(city.to_dict()), 201
+    return jsonify(city.to_dict()), 200
