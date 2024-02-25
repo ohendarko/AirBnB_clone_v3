@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 """handles all default RESTFul API actions"""
 from models.place import Place
+from models.user import User
 from models.city import City
 from api.v1.views import app_views
 from models import storage
@@ -29,7 +30,7 @@ def get_place(place_id):
     return jsonify(place.to_dict())
 
 
-@app_views.route("/places/<place_id>>", strict_slashes=False, methods=['DELETE'])
+@app_views.route("/places/<place_id>", strict_slashes=False, methods=['DELETE'])
 def delete_place(place_id):
     """Get a specific User object by ID"""
     place = storage.get(Place, place_id)
@@ -42,27 +43,34 @@ def delete_place(place_id):
 @app_views.route("/cities/<city_id>/places", strict_slashes=False, methods=['POST'])
 def post_place(city_id):
     """Post a specific User object by ID"""
+    city = storage.get(City, city_id)
+    if city is None:
+        abort(404)
     data = request.get_json()
     if data is None:
         abort(400, 'Not a JSON')
-    if 'email' not in data:
-        abort(400, 'Missing email')
-    if 'password' not in data:
-        abort(400, 'Missing password')
+    if 'user_id' not in data:
+        abort(400, 'Missing user_id')
+    if 'name' not in data:
+        abort(400, 'Missing name')
+    user_id = data['user_id']
+    user = storage.get(User, user_id)
+    if user is None:
+        abort(404)
     place_name = data['name']
-    new_place = Place(name=place_name, city_id=city_id)
+    new_place = Place(name=place_name, city_id=city_id, user_id=user_id)
     storage.new(new_place)
     storage.save()
     return jsonify(new_place.to_dict()), 201
 
 
 @app_views.route("/places/<place_id>", strict_slashes=False, methods=['PUT'])
-def update_place(places_id):
+def update_place(place_id):
     """Update a specific User object by ID"""
     data = request.get_json()
     if data is None:
         abort(400, 'Not a JSON')
-    place = storage.get(Place, places_id)
+    place = storage.get(Place, place_id)
     if place is None:
         abort(404)
     for key, value in data.items():
