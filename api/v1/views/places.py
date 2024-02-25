@@ -9,7 +9,8 @@ from flask import jsonify, abort
 from flask import request
 
 
-@app_views.route("/cities/<city_id>/places", strict_slashes=False, methods=['GET'])
+@app_views.route("/cities/<city_id>/places", strict_slashes=False,
+                 methods=['GET'])
 def places(city_id):
     """the list of all User objects"""
     city = storage.get(City, city_id)
@@ -17,7 +18,7 @@ def places(city_id):
         abort(404)
     plases = storage.all(Place).values()
     city_places = [place.to_dict() for place in plases if
-                    place.city_id == city_id]
+                   place.city_id == city_id]
     return jsonify(city_places)
 
 
@@ -30,7 +31,8 @@ def get_place(place_id):
     return jsonify(place.to_dict())
 
 
-@app_views.route("/places/<place_id>", strict_slashes=False, methods=['DELETE'])
+@app_views.route("/places/<place_id>", strict_slashes=False,
+                 methods=['DELETE'])
 def delete_place(place_id):
     """Get a specific User object by ID"""
     place = storage.get(Place, place_id)
@@ -40,7 +42,8 @@ def delete_place(place_id):
     return jsonify({}), 200
 
 
-@app_views.route("/cities/<city_id>/places", strict_slashes=False, methods=['POST'])
+@app_views.route("/cities/<city_id>/places", strict_slashes=False,
+                 methods=['POST'])
 def post_place(city_id):
     """Post a specific User object by ID"""
     city = storage.get(City, city_id)
