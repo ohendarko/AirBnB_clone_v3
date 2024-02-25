@@ -8,14 +8,16 @@ from flask import jsonify, abort
 from flask import request
 
 
-@app_views.route("/amenities/", methods=['GET'])
+@app_views.route("/amenities/", strict_slashes=False,
+                 methods=['GET'])
 def amenities():
     """the list of all Amenity objects"""
     amenities = storage.all(Amenity).values()
     return jsonify([amenity.to_dict() for amenity in amenities])
 
 
-@app_views.route("/amenities/<amenity_id>", methods=['GET'])
+@app_views.route("/amenities/<amenity_id>", strict_slashes=False,
+                 methods=['GET'])
 def get_amenity(amenity_id):
     """Get a specific Amenity object by ID"""
     amenity = storage.get(Amenity, amenity_id)
@@ -24,7 +26,8 @@ def get_amenity(amenity_id):
     return jsonify(amenity.to_dict())
 
 
-@app_views.route("/amenities/<amenity_id>", methods=['DELETE'])
+@app_views.route("/amenities/<amenity_id>", strict_slashes=False,
+                 methods=['DELETE'])
 def delete_amenity(amenity_id):
     """Get a specific Amenity object by ID"""
     amenity = storage.get(Amenity, amenity_id)
@@ -34,7 +37,8 @@ def delete_amenity(amenity_id):
     return jsonify({}), 200
 
 
-@app_views.route("/amenities/", methods=['POST'])
+@app_views.route("/amenities/", strict_slashes=False,
+                 methods=['POST'])
 def post_amenity():
     """Post a specific Amenity object by ID"""
     data = request.get_json()
@@ -49,7 +53,8 @@ def post_amenity():
     return jsonify(new_amenity.to_dict()), 201
 
 
-@app_views.route("/amenities/<amenity_id>", methods=['PUT'])
+@app_views.route("/amenities/<amenity_id>", strict_slashes=False,
+                 methods=['PUT'])
 def update_amenity(amenity_id):
     """Update a specific Amenity object by ID"""
     data = request.get_json()
