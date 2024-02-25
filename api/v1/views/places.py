@@ -40,7 +40,7 @@ def delete_place(place_id):
 
 
 @app_views.route("/cities/<city_id>/places", methods=['POST'])
-def post_place():
+def post_place(city_id):
     """Post a specific User object by ID"""
     data = request.get_json()
     if data is None:

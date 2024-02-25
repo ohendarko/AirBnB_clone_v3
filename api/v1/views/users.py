@@ -33,7 +33,7 @@ def delete_user(user_id):
     return jsonify({}), 200
 
 
-@app_views.route("/users", methods=['POST'])
+@app_views.route("/users/", methods=['POST'])
 def post_user():
     """Post a specific User object by ID"""
     data = request.get_json()
