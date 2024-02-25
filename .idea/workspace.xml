@@ -4,7 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f7b83912-43da-4b63-8f3a-1e193450523b" name="Changes" comment="" />
+    <list default="true" id="f7b83912-43da-4b63-8f3a-1e193450523b" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/api/v1/views/places.py" beforeDir="false" afterPath="$PROJECT_DIR$/api/v1/views/places.py" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -40,8 +42,9 @@
   "keyToString": {
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "master",
     "ignore.virus.scanning.warn.message": "true",
-    "last_opened_file_path": "D:/KOD/ALX/Flask",
+    "last_opened_file_path": "D:/KOD/ALX/AirBnB_clone_v3",
     "settings.editor.selected.configurable": "preferences.fileTypes"
   }
 }]]></component>

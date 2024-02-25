@@ -8,7 +8,7 @@ from flask import jsonify, abort
 from flask import request
 
 
-@app_views.route("/cities/<city_id>/places/", methods=['GET'])
+@app_views.route("/cities/<city_id>/places", methods=['GET'])
 def places(city_id):
     """the list of all User objects"""
     city = storage.get(City, city_id)
