@@ -62,7 +62,8 @@ def post_review(place_id):
         abort(404)
     review_name = data['name']
     text = data['text']
-    new_review = Review(name=review_name, place_id=place_id, user_id=user_id, text=text)
+    new_review = Review(name=review_name, place_id=place_id,
+                        user_id=user_id, text=text)
     storage.new(new_review)
     storage.save()
     return jsonify(new_review.to_dict()), 201
