@@ -7,14 +7,16 @@ from flask import jsonify, abort
 from flask import request
 
 
-@app_views.route("/states/", methods=['GET'])
+@app_views.route("/states/", strict_slashes=False,
+                 methods=['GET'])
 def states():
     """the list of all State objects"""
     statess = storage.all(State).values()
     return jsonify([state.to_dict() for state in statess])
 
 
-@app_views.route("/states/<state_id>", methods=['GET'])
+@app_views.route("/states/<state_id>", strict_slashes=False,
+                 methods=['GET'])
 def get_state(state_id):
     """Get a specific State object by ID"""
     state = storage.get(State, state_id)
@@ -23,7 +25,8 @@ def get_state(state_id):
     return jsonify(state.to_dict())
 
 
-@app_views.route("/states/<state_id>", methods=['DELETE'])
+@app_views.route("/states/<state_id>", strict_slashes=False,
+                 methods=['DELETE'])
 def delete_state(state_id):
     """Get a specific State object by ID"""
     state = storage.get(State, state_id)
@@ -33,7 +36,8 @@ def delete_state(state_id):
     return jsonify({}), 200
 
 
-@app_views.route("/states/", methods=['POST'])
+@app_views.route("/states/", strict_slashes=False,
+                 methods=['POST'])
 def post_state():
     """Post a specific State object by ID"""
     # Parse JSON data from request body
@@ -60,7 +64,8 @@ def post_state():
     return jsonify(new_state.to_dict()), 201
 
 
-@app_views.route("/states/<state_id>", methods=['PUT'])
+@app_views.route("/states/<state_id>", strict_slashes=False,
+                 methods=['PUT'])
 def update_state(state_id):
     """Update a specific State object by ID"""
     data = request.get_json()
