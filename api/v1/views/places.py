@@ -49,17 +49,15 @@ def post_place(city_id):
         abort(400, 'Missing email')
     if 'password' not in data:
         abort(400, 'Missing password')
-    user_name = data['name']
-    email = data['email']
-    password = data['password']
-    new_user = User(name=user_name, email=email, password=password)
-    storage.new(new_user)
+    place_name = data['name']
+    new_place = Place(name=place_name, city_id=city_id)
+    storage.new(new_place)
     storage.save()
-    return jsonify(new_user.to_dict()), 201
+    return jsonify(new_place.to_dict()), 201
 
 
 @app_views.route("/users/<user_id>", methods=['PUT'])
-def update_user(user_id):
+def update_place(user_id):
     """Update a specific User object by ID"""
     data = request.get_json()
     if data is None:
