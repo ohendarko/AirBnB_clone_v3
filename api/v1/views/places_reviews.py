@@ -12,7 +12,7 @@ from flask import request
 @app_views.route("/places/<place_id>/reviews", strict_slashes=False,
                  methods=['GET'])
 def get_reviews(place_id):
-    """the list of all User objects"""
+    """the list of all Review objects"""
     places = storage.get(Place, place_id)
     if places is None:
         abort(404)
@@ -24,7 +24,7 @@ def get_reviews(place_id):
 
 @app_views.route("reviews/<review_id>", strict_slashes=False, methods=['GET'])
 def get_review(review_id):
-    """Get a specific User object by ID"""
+    """Get a specific Review object by ID"""
     review = storage.get(Review, review_id)
     if review is None:
         abort(404)
@@ -34,7 +34,7 @@ def get_review(review_id):
 @app_views.route("/reviews/<review_id>", strict_slashes=False,
                  methods=['DELETE'])
 def delete_review(review_id):
-    """Get a specific User object by ID"""
+    """Get a specific Review object by ID"""
     review = storage.get(Review, review_id)
     if review is None:
         abort(404)
@@ -45,7 +45,7 @@ def delete_review(review_id):
 @app_views.route("/places/<place_id>/reviews", strict_slashes=False,
                  methods=['POST'])
 def post_review(place_id):
-    """Post a specific User object by ID"""
+    """Post a specific Review object by ID"""
     places = storage.get(Place, place_id)
     if places is None:
         abort(404)
@@ -70,7 +70,7 @@ def post_review(place_id):
 
 @app_views.route("/reviews/<review_id>", strict_slashes=False, methods=['PUT'])
 def update_review(review_id):
-    """Update a specific User object by ID"""
+    """Update a specific Review object by ID"""
     data = request.get_json()
     if data is None:
         abort(400, 'Not a JSON')
