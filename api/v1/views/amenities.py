@@ -26,7 +26,7 @@ def get_amenity(amenity_id):
 
 @app_views.route("/amenities/<amenity_id>", methods=['DELETE'])
 def delete_amenity(amenity_id):
-    """Get a specific State object by ID"""
+    """Get a specific Amenity object by ID"""
     amenity = storage.get(Amenity, amenity_id)
     if amenity is None:
         abort(404)
@@ -36,7 +36,7 @@ def delete_amenity(amenity_id):
 
 @app_views.route("/amenities/", methods=['POST'])
 def post_amenity():
-    """Post a specific State object by ID"""
+    """Post a specific Amenity object by ID"""
     data = request.get_json()
     if data is None:
         abort(400, 'Not a JSON')

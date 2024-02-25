@@ -12,7 +12,7 @@ from flask import request
 @app_views.route("/cities/<city_id>/places", strict_slashes=False,
                  methods=['GET'])
 def places(city_id):
-    """the list of all User objects"""
+    """the list of all Place objects"""
     city = storage.get(City, city_id)
     if city is None:
         abort(404)
@@ -24,7 +24,7 @@ def places(city_id):
 
 @app_views.route("places/<place_id>", strict_slashes=False, methods=['GET'])
 def get_place(place_id):
-    """Get a specific User object by ID"""
+    """Get a specific Place object by ID"""
     place = storage.get(Place, place_id)
     if place is None:
         abort(404)
@@ -34,7 +34,7 @@ def get_place(place_id):
 @app_views.route("/places/<place_id>", strict_slashes=False,
                  methods=['DELETE'])
 def delete_place(place_id):
-    """Get a specific User object by ID"""
+    """Get a specific Place object by ID"""
     place = storage.get(Place, place_id)
     if place is None:
         abort(404)
@@ -45,7 +45,7 @@ def delete_place(place_id):
 @app_views.route("/cities/<city_id>/places", strict_slashes=False,
                  methods=['POST'])
 def post_place(city_id):
-    """Post a specific User object by ID"""
+    """Post a specific Place object by ID"""
     city = storage.get(City, city_id)
     if city is None:
         abort(404)
@@ -69,7 +69,7 @@ def post_place(city_id):
 
 @app_views.route("/places/<place_id>", strict_slashes=False, methods=['PUT'])
 def update_place(place_id):
-    """Update a specific User object by ID"""
+    """Update a specific Place object by ID"""
     data = request.get_json()
     if data is None:
         abort(400, 'Not a JSON')
