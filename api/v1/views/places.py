@@ -8,7 +8,7 @@ from flask import jsonify, abort
 from flask import request
 
 
-@app_views.route("/cities/<city_id>/places", methods=['GET'])
+@app_views.route("/cities/<city_id>/places", strict_slashes=False, methods=['GET'])
 def places(city_id):
     """the list of all User objects"""
     city = storage.get(City, city_id)
@@ -20,7 +20,7 @@ def places(city_id):
     return jsonify(city_places)
 
 
-@app_views.route("places/<place_id>", methods=['GET'])
+@app_views.route("places/<place_id>", strict_slashes=False, methods=['GET'])
 def get_place(place_id):
     """Get a specific User object by ID"""
     place = storage.get(Place, place_id)
@@ -29,7 +29,7 @@ def get_place(place_id):
     return jsonify(place.to_dict())
 
 
-@app_views.route("/places/<place_id>>", methods=['DELETE'])
+@app_views.route("/places/<place_id>>", strict_slashes=False, methods=['DELETE'])
 def delete_place(place_id):
     """Get a specific User object by ID"""
     place = storage.get(Place, place_id)
@@ -39,7 +39,7 @@ def delete_place(place_id):
     return jsonify({}), 200
 
 
-@app_views.route("/cities/<city_id>/places", methods=['POST'])
+@app_views.route("/cities/<city_id>/places", strict_slashes=False, methods=['POST'])
 def post_place(city_id):
     """Post a specific User object by ID"""
     data = request.get_json()
@@ -56,7 +56,7 @@ def post_place(city_id):
     return jsonify(new_place.to_dict()), 201
 
 
-@app_views.route("/places/<place_id>", methods=['PUT'])
+@app_views.route("/places/<place_id>", strict_slashes=False, methods=['PUT'])
 def update_place(places_id):
     """Update a specific User object by ID"""
     data = request.get_json()

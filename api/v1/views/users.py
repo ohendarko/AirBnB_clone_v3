@@ -7,14 +7,14 @@ from flask import jsonify, abort
 from flask import request
 
 
-@app_views.route("/users", methods=['GET'])
+@app_views.route("/users", strict_slashes=False, methods=['GET'])
 def users():
     """the list of all User objects"""
     users = storage.all(User).values()
     return jsonify([user.to_dict() for user in users])
 
 
-@app_views.route("/users/<user_id>", methods=['GET'])
+@app_views.route("/users/<user_id>", strict_slashes=False, methods=['GET'])
 def get_user(user_id):
     """Get a specific User object by ID"""
     user = storage.get(User, user_id)
@@ -23,7 +23,7 @@ def get_user(user_id):
     return jsonify(user.to_dict())
 
 
-@app_views.route("/users/<user_id>", methods=['DELETE'])
+@app_views.route("/users/<user_id>", strict_slashes=False, methods=['DELETE'])
 def delete_user(user_id):
     """Get a specific User object by ID"""
     user = storage.get(User, user_id)
@@ -33,7 +33,7 @@ def delete_user(user_id):
     return jsonify({}), 200
 
 
-@app_views.route("/users", methods=['POST'])
+@app_views.route("/users", strict_slashes=False, methods=['POST'])
 def post_user():
     """Post a specific User object by ID"""
     data = request.get_json()
@@ -52,7 +52,7 @@ def post_user():
     return jsonify(new_user.to_dict()), 201
 
 
-@app_views.route("/users/<user_id>", methods=['PUT'])
+@app_views.route("/users/<user_id>", strict_slashes=False, methods=['PUT'])
 def update_user(user_id):
     """Update a specific User object by ID"""
     data = request.get_json()
